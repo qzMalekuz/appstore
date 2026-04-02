@@ -87,6 +87,7 @@ def search(request):
         'search_query': query,
     	'go_back_to': '&ldquo;%s&rdquo; search results' % query,
     }
-    if None in (c['results']):
+    # If the primary search (with spaces) returns results, prioritize it over the fallback.
+    if c['results']:
         d = c
     return html_response('search.html', d, request, processors = (_nav_panel_context, ))
